@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block title %}Saved {{ entry.planner }} plan | PocketSmart AI{% endblock %}
+{% block content %}
+<div class="breadcrumb"><a href="/history">Saved plans</a><span>/</span><span>{{ entry.planner }} plan</span></div>
+<section class="page-intro detail-intro"><p class="eyebrow">{{ entry.planner }} · {{ entry.created_at[:10] }}</p><h1>Your plan<span>.</span></h1><p>{{ entry.summary }}</p><div class="detail-budget">{{ entry.result.currency }} {{ '%.2f'|format(entry.result.budget) }} <span>total budget</span></div></section>
+<section class="detail-content"><div><h2>Budget allocation</h2><div class="allocation-list">{% for item in entry.result.allocations %}<div class="allocation-item"><div class="allocation-label"><b>{{ item.category }}</b><span>{{ entry.result.currency }} {{ '%.2f'|format(item.amount) }}</span></div><p>{{ item.rationale }}</p></div>{% endfor %}</div></div>
+<div><h2>Suggested options</h2><div class="recommendation-list">{% for item in entry.result.recommendations %}<article class="recommendation-card"><div class="rec-card-top"><span>{{ item.category }}</span><b>{{ entry.result.currency }} {{ '%.2f'|format(item.price) }}{% if item.quantity > 1 %} × {{ item.quantity }}{% endif %}</b></div><h3>{{ item.name }}</h3><p>{{ item.reason }}</p><a href="{{ item.url }}" target="_blank" rel="noopener noreferrer">Search {{ item.platform }} ↗</a></article>{% endfor %}</div></div></section>
+<div class="detail-footnote">{{ entry.result.currency }} · Estimates only; confirm price, stock and delivery on the retailer site.</div>
+{% endblock %}

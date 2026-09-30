@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block title %}PocketSmart AI | Spend with a plan{% endblock %}
+{% block content %}
+<section class="landing-hero">
+  <div class="hero-copy">
+    <p class="eyebrow">A LITTLE MORE CLARITY, A LOT LESS GUESSWORK</p>
+    <h1>Good plans<br>fit real life.</h1>
+    <p class="hero-description">Set a budget for your space, celebration or special occasion. PocketSmart turns the big number into a thoughtful plan you can actually use.</p>
+    <div class="hero-actions">
+      <a class="button" href="{{ '/dashboard' if user else '/register' }}">{{ 'Open your planners' if user else 'Start planning' }}<span aria-hidden="true">↗</span></a>
+      <a class="quiet-link" href="{{ '/history' if user else '/login' }}">{{ 'View saved plans' if user else 'I already have an account' }}</a>
+    </div>
+    <div class="trust-line"><span class="trust-dot"></span> Your plans stay private to your account</div>
+  </div>
+  <div class="hero-art" aria-label="Illustration of a balanced budget plan">
+    <div class="art-paper">
+      <div class="art-head"><span>YOUR NEXT PLAN</span><span class="art-status">IN BALANCE</span></div>
+      <div class="art-title">Make room<br>for what matters.</div>
+      <div class="art-rule"></div>
+      <div class="art-line"><span>Essentials</span><span class="art-track"><i style="width: 74%"></i></span><b>74%</b></div>
+      <div class="art-line"><span>Good details</span><span class="art-track art-track-coral"><i style="width: 48%"></i></span><b>48%</b></div>
+      <div class="art-line"><span>Just in case</span><span class="art-track art-track-yellow"><i style="width: 24%"></i></span><b>24%</b></div>
+      <div class="art-note"><span class="note-mark">✓</span><span>Every suggestion starts with your number.</span></div>
+    </div>
+    <div class="art-stamp">PLAN<br>WITH<br>CARE</div>
+  </div>
+</section>
+
+<section class="landing-section">
+  <div class="section-heading">
+    <div><p class="eyebrow">THREE WAYS TO MAKE IT WORK</p><h2>Choose what you’re planning.</h2></div>
+    <p>One clear budget. A plan shaped around the details that matter to you.</p>
+  </div>
+  <div class="planner-grid">
+    <a class="planner-tile tile-green" href="{{ '/planner/home' if user else '/register' }}">
+      <span class="tile-index">01 / HOME</span><span class="tile-symbol symbol-home" aria-hidden="true">⌂</span>
+      <h3>Make a place<br>feel like yours.</h3><p>Room essentials, lighting and finishing touches, all in one plan.</p><span class="tile-link">Plan a room <b>↗</b></span>
+    </a>
+    <a class="planner-tile tile-coral" href="{{ '/planner/party' if user else '/register' }}">
+      <span class="tile-index">02 / GATHER</span><span class="tile-symbol symbol-party" aria-hidden="true">✳</span>
+      <h3>Bring everyone<br>to the table.</h3><p>Give food, venue, decor and entertainment a sensible share.</p><span class="tile-link">Plan a gathering <b>↗</b></span>
+    </a>
+    <a class="planner-tile tile-lime" href="{{ '/planner/jewelry' if user else '/register' }}">
+      <span class="tile-index">03 / OCCASION</span><span class="tile-symbol symbol-jewelry" aria-hidden="true">◇</span>
+      <h3>Find the right<br>finishing detail.</h3><p>Coordinate jewelry with your occasion, style and outfit colors.</p><span class="tile-link">Plan a look <b>↗</b></span>
+    </a>
+  </div>
+</section>
+
+<section class="landing-note">
+  <div class="note-number">01—03</div><div><p class="eyebrow">PRACTICAL BY DESIGN</p><h2>Useful ideas, not pretend price tags.</h2></div>
+  <p>Suggestions are estimated and link to retailer searches so you can check current prices, stock and delivery before deciding.</p>
+</section>
+{% endblock %}

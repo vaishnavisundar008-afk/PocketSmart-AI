@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %}How PocketSmart helps | PocketSmart AI{% endblock %}
+{% block content %}
+<section class="page-intro"><p class="eyebrow">THOUGHTFUL, NOT COMPLICATED</p><h1>Real life has<br>more than one budget<span>.</span></h1><p>Different plans call for different details. PocketSmart starts with your priorities, then keeps the whole number in view.</p></section>
+<section class="story-grid">
+  <article class="story-card story-green"><span class="story-index">EXAMPLE 01</span><h2>A room that comes together.</h2><p>List the rooms and essentials first. The planner spreads estimates across your list, then points you to retailer searches to compare.</p><span class="story-tag">HOME & INTERIORS</span></article>
+  <article class="story-card story-coral"><span class="story-index">EXAMPLE 02</span><h2>A gathering with breathing room.</h2><p>Guest count, event type and city guide a starting split for food, venue, decor and entertainment.</p><span class="story-tag">PARTIES & EVENTS</span></article>
+  <article class="story-card story-lime"><span class="story-index">EXAMPLE 03</span><h2>A look with a clear limit.</h2><p>Share an occasion, style and outfit colors. Add an image when Gemini is configured for optional visual matching.</p><span class="story-tag">JEWELRY & OCCASIONS</span></article>
+</section>
+<p class="illustrative-note">These are illustrative examples, not customer reviews. Suggestions are estimates and retailer searches are not live inventory.</p>
+<div class="center-cta"><a class="button" href="{{ '/dashboard' if user else '/register' }}">{{ 'Choose a planner' if user else 'Make your first plan' }} <span aria-hidden="true">↗</span></a></div>
+{% endblock %}

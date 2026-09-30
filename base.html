@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="csrf-token" content="{{ csrf_token }}">
+  <meta name="theme-color" content="#f4f7f4">
+  <title>{% block title %}PocketSmart AI{% endblock %}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,500;6..72,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', path='app.css') }}">
+  {% block head %}{% endblock %}
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="{{ '/dashboard' if user else '/' }}" aria-label="PocketSmart AI home">
+      <span class="brand-mark">p</span><span>PocketSmart<span class="brand-ai"> AI</span></span>
+    </a>
+    <nav class="main-nav" aria-label="Main navigation">
+      {% if user %}
+        <a href="/dashboard" class="{% if request.url.path == '/dashboard' %}is-active{% endif %}">Overview</a>
+        <a href="/history" class="{% if request.url.path == '/history' %}is-active{% endif %}">Saved plans</a>
+        <a href="/testimonials" class="{% if request.url.path == '/testimonials' %}is-active{% endif %}">How it helps</a>
+        <span class="nav-user">{{ user.name.split(' ')[0] }}</span>
+        <form method="post" action="/logout" class="logout-form">
+          <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+          <button class="text-button" type="submit">Sign out</button>
+        </form>
+      {% else %}
+        <a href="/testimonials">How it helps</a>
+        <a href="/login">Sign in</a>
+        <a href="/register" class="button button-small">Create account</a>
+      {% endif %}
+    </nav>
+  </header>
+  <main id="main-content">
+    {% block content %}{% endblock %}
+  </main>
+  <footer class="site-footer">
+    <a class="brand brand-footer" href="{{ '/dashboard' if user else '/' }}"><span class="brand-mark">p</span><span>PocketSmart<span class="brand-ai"> AI</span></span></a>
+    <span>Thoughtful plans. Clear numbers.</span>
+    <span>Prices are estimates, not live quotes.</span>
+  </footer>
+  <script src="{{ url_for('static', path='app.js') }}" defer></script>
+</body>
+</html>

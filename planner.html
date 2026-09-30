@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block title %}{{ content.title }} | PocketSmart AI{% endblock %}
+{% block content %}
+<div class="breadcrumb"><a href="/dashboard">Overview</a><span>/</span><span>{{ content.title }}</span></div>
+<section class="planner-heading"><p class="eyebrow">{{ content.eyebrow }}</p><h1>{{ content.title }}<span>.</span></h1><p>{{ content.description }}</p></section>
+<div class="planner-workspace">
+  <form id="planner-form" class="planner-form" data-planner="{{ planner }}">
+    <div class="form-section-title"><span>01</span><div><h2>Your budget</h2><p>Start with a number that feels comfortable.</p></div></div>
+    <div class="field-row budget-row">
+      <div class="field-group"><label for="budget">Total budget</label><input id="budget" name="budget" type="number" min="1" max="100000000" step="0.01" placeholder="2,500" required></div>
+      <div class="field-group currency-group"><label for="currency">Currency</label><select id="currency" name="currency"><option>USD</option><option>INR</option><option>EUR</option><option>GBP</option></select></div>
+    </div>
+
+    {% if planner == 'home' %}
+    <div class="form-section-title section-spaced"><span>02</span><div><h2>Rooms & essentials</h2><p>Add the pieces you need; quantities help shape the estimate.</p></div></div>
+    <div id="home-lines" class="home-lines">
+      <div class="home-line"><div class="field-group"><label>Room</label><select class="room-name"><option>Living room</option><option>Bedroom</option><option>Kitchen</option><option>Dining room</option><option>Home office</option><option>Bathroom</option></select></div><div class="field-group"><label>What do you need?</label><input class="item-name" value="Lighting" maxlength="80" required></div><div class="field-group quantity-field"><label>Qty</label><input class="item-quantity" type="number" min="1" max="20" value="1" required></div><button type="button" class="remove-line" aria-label="Remove item" title="Remove item">×</button></div>
+      <div class="home-line"><div class="field-group"><label>Room</label><select class="room-name"><option>Living room</option><option selected>Bedroom</option><option>Kitchen</option><option>Dining room</option><option>Home office</option><option>Bathroom</option></select></div><div class="field-group"><label>What do you need?</label><input class="item-name" value="Storage" maxlength="80" required></div><div class="field-group quantity-field"><label>Qty</label><input class="item-quantity" type="number" min="1" max="20" value="1" required></div><button type="button" class="remove-line" aria-label="Remove item" title="Remove item">×</button></div>
+    </div>
+    <button class="add-line" type="button" id="add-home-line"><span aria-hidden="true">+</span> Add a room item</button>
+    <div class="field-group style-field"><label for="style">Design direction</label><select id="style" name="style"><option>Warm modern</option><option>Natural and calm</option><option>Colorful eclectic</option><option>Minimal</option><option>Classic</option><option>Industrial</option></select></div>
+    {% elif planner == 'party' %}
+    <div class="form-section-title section-spaced"><span>02</span><div><h2>The gathering</h2><p>A few details help divide the budget sensibly.</p></div></div>
+    <div class="field-row"><div class="field-group"><label for="event_type">Occasion</label><select id="event_type" name="event_type"><option>Birthday</option><option>Wedding</option><option>Family gathering</option><option>Corporate event</option><option>Graduation</option><option>Other celebration</option></select></div><div class="field-group"><label for="guests">Guest count</label><input id="guests" name="guests" type="number" min="1" max="10000" value="20" required></div></div>
+    <div class="field-row"><div class="field-group"><label for="city">City or area</label><input id="city" name="city" maxlength="80" placeholder="e.g. Austin" required></div><div class="field-group"><label for="venue">Venue preference</label><select id="venue" name="venue"><option>Flexible</option><option>At home</option><option>Outdoor</option><option>Restaurant</option><option>Event space</option></select></div></div>
+    <div class="field-group style-field"><label for="food_style">Food preference</label><select id="food_style" name="food_style"><option>Mixed menu</option><option>Vegetarian</option><option>Vegan</option><option>Regional cuisine</option><option>Light refreshments</option></select></div>
+    {% else %}
+    <div class="form-section-title section-spaced"><span>02</span><div><h2>Your occasion & style</h2><p>Tell us what the look should feel like.</p></div></div>
+    <div class="field-row"><div class="field-group"><label for="occasion">Occasion</label><select id="occasion" name="occasion"><option>Wedding</option><option>Formal evening</option><option>Festival</option><option>Anniversary</option><option>Everyday</option><option>Graduation</option></select></div><div class="field-group"><label for="jewelry-style">Style direction</label><select id="jewelry-style" name="style"><option>Modern minimal</option><option>Classic</option><option>Statement</option><option>Vintage</option><option>Nature-inspired</option></select></div></div>
+    <div class="field-group style-field"><label for="outfit_colors">Outfit colors <span class="optional-label">Optional</span></label><input id="outfit_colors" name="outfit_colors" placeholder="e.g. emerald, ivory and gold" maxlength="120"></div>
+    <div class="field-group upload-field"><label for="outfit-image">Outfit image <span class="optional-label">Optional · JPG, PNG or WebP · up to 5 MB</span></label><input id="outfit-image" name="image" type="file" accept="image/jpeg,image/png,image/webp"><span id="image-name" class="field-hint">Images are sent to Gemini only when an API key is configured.</span></div>
+    {% endif %}
+    <div class="form-actions"><button class="button button-wide" type="submit"><span class="button-label">Build my plan</span><span class="button-spinner" aria-hidden="true"></span><span aria-hidden="true">↗</span></button><p>Suggestions are estimates. Retailer links open a search for you to verify.</p></div>
+    <p id="form-error" class="form-alert" role="alert" hidden></p>
+  </form>
+  <aside class="planner-aside">
+    <div class="aside-budget"><span class="eyebrow">A GOOD PLAN LEAVES ROOM</span><div class="budget-ring"><div><b>100<span>%</span></b><small>your limit</small></div></div><p>We check the total before showing suggestions. Keep a little aside for tax, delivery or the unexpected.</p></div>
+    <div class="aside-note"><span class="note-mark">i</span><p><b>What to expect</b><br>Prices and availability change. We link to retailer searches, not live listings or quotes.</p></div>
+  </aside>
+</div>
+<section id="results" class="results-section" aria-live="polite" hidden>
+  <div class="results-heading"><div><p class="eyebrow">YOUR PLAN</p><h2>Here’s a thoughtful place to start.</h2></div><span id="result-source" class="source-badge"></span></div>
+  <p id="result-summary" class="result-summary"></p>
+  <div class="results-layout"><div><h3>Budget allocation</h3><div id="result-allocations" class="allocation-list"></div></div><div><h3>Suggested options</h3><div id="result-items" class="recommendation-list"></div></div></div>
+  <div id="result-insights" class="result-insights"></div>
+  <a id="result-history-link" class="quiet-link result-history-link" href="/history">Open this saved plan in history ↗</a>
+</section>
+<template id="home-line-template">
+  <div class="home-line"><div class="field-group"><label>Room</label><select class="room-name"><option>Living room</option><option>Bedroom</option><option>Kitchen</option><option>Dining room</option><option>Home office</option><option>Bathroom</option></select></div><div class="field-group"><label>What do you need?</label><input class="item-name" maxlength="80" placeholder="e.g. ceiling fan" required></div><div class="field-group quantity-field"><label>Qty</label><input class="item-quantity" type="number" min="1" max="20" value="1" required></div><button type="button" class="remove-line" aria-label="Remove item" title="Remove item">×</button></div>
+</template>
+{% endblock %}

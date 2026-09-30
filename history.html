@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}Saved plans | PocketSmart AI{% endblock %}
+{% block content %}
+<section class="page-intro"><p class="eyebrow">YOUR PLANNING TRAIL</p><h1>Saved plans<span>.</span></h1><p>Every plan you create stays here, ready to revisit.</p></section>
+{% if entries %}
+<div class="history-list">
+  {% for entry in entries %}
+  <a class="history-row" href="/recommendations-details/{{ entry.id }}"><span class="history-date">{{ entry.created_at[:10] }}<small>{{ entry.created_at[11:16] }} UTC</small></span><span class="history-kind">{{ entry.planner }}</span><span class="history-summary">{{ entry.summary }}</span><span class="history-arrow">↗</span></a>
+  {% endfor %}
+</div>
+{% else %}
+<div class="empty-state history-empty"><span class="empty-mark">↗</span><div><b>No saved plans yet.</b><p>Start with a planner and your first result will appear here.</p><a class="quiet-link" href="/dashboard">Choose a planner ↗</a></div></div>
+{% endif %}
+{% endblock %}

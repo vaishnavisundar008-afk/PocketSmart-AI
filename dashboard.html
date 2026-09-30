@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}Your workspace | PocketSmart AI{% endblock %}
+{% block content %}
+<section class="dashboard-intro">
+  <div><p class="eyebrow">YOUR POCKETSMART WORKSPACE</p><h1>Welcome back, {{ user.name.split(' ')[0] }}.</h1><p>What are we making room for today?</p></div>
+  <div class="plan-count"><span>{{ count }}</span><small>{{ 'saved plan' if count == 1 else 'saved plans' }}</small></div>
+</section>
+<section class="dashboard-planners">
+  <div class="section-heading compact-heading"><div><p class="eyebrow">PICK UP A PLANNER</p><h2>Start with a number.</h2></div><span class="section-aside">Each idea is built around your budget.</span></div>
+  <div class="planner-list">
+    <a class="planner-row" href="/planner/home"><span class="row-number">01</span><span class="row-mark mark-home">⌂</span><span class="row-copy"><b>Home & interiors</b><small>Rooms, furniture and details</small></span><span class="row-tag">SPACE</span><span class="row-arrow">↗</span></a>
+    <a class="planner-row" href="/planner/party"><span class="row-number">02</span><span class="row-mark mark-party">✳</span><span class="row-copy"><b>Party & gathering</b><small>Food, venue, decor and more</small></span><span class="row-tag">PEOPLE</span><span class="row-arrow">↗</span></a>
+    <a class="planner-row" href="/planner/jewelry"><span class="row-number">03</span><span class="row-mark mark-jewelry">◇</span><span class="row-copy"><b>Jewelry & occasions</b><small>A coordinated look, within reach</small></span><span class="row-tag">DETAILS</span><span class="row-arrow">↗</span></a>
+  </div>
+</section>
+<section class="recent-section">
+  <div class="section-heading compact-heading"><div><p class="eyebrow">YOUR PLANNING TRAIL</p><h2>Recently saved</h2></div><a class="quiet-link" href="/history">See all plans <span aria-hidden="true">↗</span></a></div>
+  {% if recent %}
+  <div class="recent-grid">
+    {% for entry in recent %}
+    <a class="recent-card" href="/recommendations-details/{{ entry.id }}"><span class="recent-type">{{ entry.planner }} plan <span>{{ entry.created_at[:10] }}</span></span><b>{{ entry.summary }}</b><span class="recent-open">Open plan ↗</span></a>
+    {% endfor %}
+  </div>
+  {% else %}
+  <div class="empty-state"><span class="empty-mark">↗</span><div><b>Your first plan starts here.</b><p>Choose a planner above and set a budget to get going.</p></div></div>
+  {% endif %}
+</section>
+{% endblock %}
